@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacSweeper</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Manrope:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+    <div class="bg-noise"></div>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <nav class="sidebar glass-panel">
+            <div class="brand">
+                <div class="logo"></div>
+                <h1>MacSweeper <span class="badge">PRO</span></h1>
+            </div>
+
+            <div class="nav-section-title" data-i18n="nav.clean">CLEANUP</div>
+            <ul class="nav-links">
+                <li class="active" data-view="applications">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    </svg>
+                    <span data-i18n="nav.apps">Applications</span>
+                </li>
+                <li data-view="orphans">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span data-i18n="nav.orphans">Leftovers</span>
+                </li>
+            </ul>
+
+            <div class="nav-section-title mt-4" data-i18n="nav.scan">SYSTEM</div>
+            <ul class="nav-links">
+                <li data-view="system">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                        <path d="M2 12h20"></path>
+                    </svg>
+                    <span data-i18n="nav.system">System Caches</span>
+                </li>
+                <li data-view="large">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    <span data-i18n="nav.large">Large Files</span>
+                </li>
+                <li data-view="dev">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    <span data-i18n="nav.dev">Developer Junk</span>
+                </li>
+                <li data-view="trash">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    <span data-i18n="nav.trash">System Trash</span>
+                </li>
+            </ul>
+
+            <div class="nav-section-title mt-4" data-i18n="nav.preferences">PREFERENCES</div>
+            <ul class="nav-links">
+                <li data-view="settings">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                        </path>
+                    </svg>
+                    <span data-i18n="nav.settings">Settings</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- View: Applications -->
+            <div id="view-applications" class="view-grid active">
+
+                <!-- App List Column -->
+                <div class="column list-column glass-panel">
+                    <div class="column-header">
+                        <div class="header-row">
+                            <h2 class="list-title" data-i18n="nav.apps">Installed Apps</h2>
+                            <button onclick="initApp()" title="Refresh" class="icon-btn" aria-label="Refresh list">
+                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                                    fill="none">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <polyline points="1 20 1 14 7 14"></polyline>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="search-container">
+                            <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
+                                stroke-width="2" fill="none">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" id="app-search" placeholder="Uygulama ara..." data-i18n-placeholder="app.search_placeholder">
+                        </div>
+                        <div id="app-load-status" class="app-load-status hidden" aria-live="polite">
+                            <span class="status-dot"></span>
+                            <span class="status-text"></span>
+                        </div>
+                    </div>
+                    <div class="list-scroll-area">
+                        <ul id="app-list" class="app-list">
+                            <div class="loading-spinner"></div>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Detail Column -->
+                <div class="column detail-column glass-panel">
+                    <div id="detail-empty" class="empty-state">
+                        <div class="empty-icon"></div>
+                        <h3 data-i18n="detail.empty.title">Uygulama Seçilmedi</h3>
+                        <p data-i18n="detail.empty.desc">Dosyalarını görmek ve güvenle temizlemek için listeden bir uygulama seçin.</p>
+                    </div>
+
+                    <div id="detail-content" class="detail-state hidden">
+                        <div class="detail-header">
+                            <h2 id="detail-app-name">App Name</h2>
+                            <p id="detail-bundle-id" class="subtitle">Bundle ID</p>
+
+                            <div class="stats-row">
+                                <div class="stat-box">
+                                    <span class="stat-label" data-i18n="detail.stats.total_size">Toplam Boyut</span>
+                                    <span class="stat-value" id="detail-total-size">0 MB</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-label" data-i18n="detail.stats.files_found">Bulunan Dosya</span>
+                                    <span class="stat-value" id="detail-file-count">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="file-list-container">
+                            <h3 class="files-header">
+                                <span data-i18n="detail.associated">Associated Files</span>
+                                <label class="select-label">
+                                    <input type="checkbox" id="chk-all-app-files" checked
+                                        onchange="toggleAllAppFiles(this.checked)">
+                                    <span data-i18n="btn.select_all">Select All</span>
+                                </label>
+                            </h3>
+                            <ul id="detail-file-list" class="file-list">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+
+                        <div class="action-bar">
+                            <div id="selection-status" class="selection-status"></div>
+                            <button id="btn-clean" class="btn-primary">
+                                <span data-i18n="detail.btn.clean">Seçilenleri Sil</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Orphans -->
+            <div id="view-orphans" class="view-full hidden">
+                <div class="glass-panel full-height-panel flex-column">
+                    <div class="hero-header">
+                        <h2 data-i18n="hero.orphans.title">Artık Dosya Analizi</h2>
+                        <p data-i18n="hero.orphans.desc">Çöp Sepeti'ne taşıdığınız uygulamalardan kalan izleri bulun.</p>
+                        <button id="btn-scan-orphans" class="btn-primary mt-4" data-i18n="hero.orphans.btn">Derin Taramayı Başlat</button>
+                    </div>
+
+                    <div id="orphans-results" class="orphans-results hidden scroll-fill">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: System Junk -->
+            <div id="view-system" class="view-full hidden">
+                <div class="glass-panel full-height-panel flex-column">
+                    <div class="hero-header">
+                        <h2 data-i18n="hero.system.title">Sistem Çöpleri ve Önbellekler</h2>
+                        <p data-i18n="hero.system.desc">Yer kaplayan macOS günlükleri ve uygulama önbelleklerini analiz edin.</p>
+                        <button id="btn-scan-system" class="btn-primary mt-4" data-i18n="hero.system.btn">Sistem Çöplerini Analiz Et</button>
+                    </div>
+                    <div id="system-results" class="orphans-results hidden scroll-fill">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Large Files -->
+            <div id="view-large" class="view-full hidden">
+                <div class="glass-panel full-height-panel flex-column">
+                    <div class="hero-header">
+                        <h2 data-i18n="hero.large.title">Büyük Dosyalar (>250MB)</h2>
+                        <p data-i18n="hero.large.desc">İndirilenler, Belgeler ve Filmler klasörlerindeki büyük dosyaları bulun.</p>
+                        <button id="btn-scan-large" class="btn-primary mt-4" data-i18n="hero.large.btn">Büyük Dosyaları Bul</button>
+                    </div>
+                    <div id="large-results" class="orphans-results hidden scroll-fill">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Dev Junk -->
+            <div id="view-dev" class="view-full hidden">
+                <div class="glass-panel full-height-panel flex-column">
+                    <div class="hero-header">
+                        <h2 data-i18n="hero.dev.title">Geliştirici Çöpleri</h2>
+                        <p data-i18n="hero.dev.desc">Xcode Derived Data, Archives ve iOS yedeklerini temizleyin.</p>
+                        <button id="btn-scan-dev" class="btn-primary mt-4" data-i18n="hero.dev.btn">Geliştirici Çöplerini Tara</button>
+                    </div>
+                    <div id="dev-results" class="orphans-results hidden scroll-fill">
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Trash -->
+            <div id="view-trash" class="view-full hidden">
+                <div class="glass-panel full-height-panel flex-column">
+                    <div class="hero-header">
+                        <h2 data-i18n="hero.trash.title">Sistem Çöpü</h2>
+                        <p data-i18n="hero.trash.desc">macOS Çöp Sepeti'ni güvenli şekilde analiz edip boşaltın.</p>
+                        <button id="btn-scan-trash" class="btn-primary mt-4" data-i18n="hero.trash.btn">Çöpü Tara</button>
+                    </div>
+                    <div id="trash-results" class="orphans-results hidden scroll-fill">
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Settings -->
+            <div id="view-settings" class="view-full hidden">
+                <div class="glass-panel full-height-panel flex-column">
+                    <div class="hero-header">
+                        <h2 data-i18n="nav.settings">Settings</h2>
+                        <p data-i18n="settings.desc">Configure MacSweeper preferences</p>
+                    </div>
+                    <div class="settings-content">
+
+                        <div class="setting-item">
+                            <label class="setting-label" data-i18n="settings.theme">Theme</label>
+                            <select id="settings-theme" onchange="setThemePreference(this.value)"
+                                class="setting-select">
+                                <option value="system" data-i18n="settings.theme.system">System</option>
+                                <option value="light" data-i18n="settings.theme.light">Light</option>
+                                <option value="dark" data-i18n="settings.theme.dark">Dark</option>
+                            </select>
+                            <p class="setting-help" data-i18n="settings.theme_desc">System mode follows your Mac
+                                appearance automatically.</p>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="setting-label" data-i18n="settings.lang">Language</label>
+                            <select id="settings-lang" onchange="setLang(this.value)" class="setting-select">
+                                <option value="tr">Türkçe (Turkish)</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="setting-label" data-i18n="settings.large_limit">Large Files Minimum
+                                Size</label>
+                            <select id="settings-large-limit"
+                                onchange="window.largeFileLimit = parseInt(this.value); localStorage.setItem('macsweeper_large_limit', this.value)"
+                                class="setting-select">
+                                <option value="100">100 MB</option>
+                                <option value="250" selected>250 MB</option>
+                                <option value="500">500 MB</option>
+                                <option value="1000">1 GB</option>
+                            </select>
+                            <p class="setting-help" data-i18n="settings.large_desc">Files smaller than this threshold
+                                will be ignored during
+                                scans.</p>
+                        </div>
+
+                        <div class="setting-item startup-item">
+                            <div>
+                                <label class="setting-label" data-i18n="settings.safe_mode">Safe Mode</label>
+                                <p class="setting-help" data-i18n="settings.safe_mode_desc">Prevents risky files from being auto-selected and asks for extra confirmation.</p>
+                            </div>
+                            <label class="switch" aria-label="Safe Mode" data-i18n-aria-label="settings.safe_mode">
+                                <input type="checkbox" id="settings-safe-mode" onchange="toggleSafeMode(this.checked)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item startup-item">
+                            <div>
+                                <label class="setting-label" data-i18n="settings.startup">Open at login</label>
+                                <p class="setting-help" data-i18n="settings.startup_desc">Launch MacSweeper
+                                    automatically when your Mac starts.</p>
+                            </div>
+                            <label class="switch" aria-label="Açılışta aç" data-i18n-aria-label="settings.startup">
+                                <input type="checkbox" id="settings-open-at-login"
+                                    onchange="toggleOpenAtLogin(this.checked)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <div class="toast-icon">✓</div>
+        <div class="toast-message">Files successfully cleaned!</div>
+    </div>
+    <button id="btn-undo-last-clean" class="undo-fab hidden" onclick="undoLastCleanup()" data-i18n="btn.undo">Undo</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
