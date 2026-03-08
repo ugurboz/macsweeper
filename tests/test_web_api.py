@@ -23,8 +23,25 @@ def _load_web_app_module():
         def open(*_args, **_kwargs):
             raise RuntimeError("Image loading is not needed in this test")
 
+        @staticmethod
+        def register_open(*_args, **_kwargs):
+            pass
+
+        @staticmethod
+        def register_extension(*_args, **_kwargs):
+            pass
+
+        @staticmethod
+        def register_mime(*_args, **_kwargs):
+            pass
+
+    class _IcnsImagePluginStub:
+        class IcnsImageFile:
+            format = "ICNS"
+
     pil_stub = types.ModuleType("PIL")
     pil_stub.Image = _ImageStub
+    pil_stub.IcnsImagePlugin = _IcnsImagePluginStub
 
     with patch.dict(sys.modules, {"webview": webview_stub, "PIL": pil_stub}):
         if "ui.web_app" in sys.modules:

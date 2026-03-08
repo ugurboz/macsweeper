@@ -101,14 +101,14 @@ def trash_files(files: list[FoundFile]) -> CleanResult:
 
 def _trash_via_finder(path: str):
     """Move a file to Trash using macOS Finder via AppleScript."""
-    escaped = path.replace("\\", "\\\\").replace('"', '\\"')
     script = (
-        f'tell application "Finder" to delete '
-        f'(POSIX file "{escaped}" as alias)'
+        'on run argv\n'
+        'tell application "Finder" to delete (POSIX file (item 1 of argv) as alias)\n'
+        'end run'
     )
     try:
         subprocess.run(
-            ["osascript", "-e", script],
+            ["osascript", "-e", script, str(path)],
             capture_output=True,
             timeout=30,
         )
